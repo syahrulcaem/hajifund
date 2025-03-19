@@ -14,6 +14,7 @@ return new class extends Migration {
             $table->string('phone');
             $table->string('ktpNumber');
             $table->string('bankAccount');
+            $table->boolean('is_approved')->default(false); // Tambahan kolom ACC admin
             $table->timestamps();
         });
     }
