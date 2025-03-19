@@ -12,9 +12,10 @@ return new class extends Migration {
             $table->foreignUuid('user_id')->constrained('users')->onDelete('cascade');
             $table->string('fullName');
             $table->string('phone');
-            $table->string('ktpNumber');
+            $table->string('ktpNumber')->unique();
             $table->string('bankAccount');
             $table->boolean('is_approved')->default(false); // Tambahan kolom ACC admin
+            $table->string('ktpImage')->nullable(); // Menyimpan path foto KTP
             $table->timestamps();
         });
     }

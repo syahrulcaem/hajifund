@@ -9,7 +9,7 @@ return new class extends Migration
     /**
      * Run the migrations.
      */
-    public function up(): void
+    public function up()
     {
         Schema::create('users', function (Blueprint $table) {
             $table->uuid('id')->primary();
@@ -18,6 +18,8 @@ return new class extends Migration
             $table->enum('role', ['ADMIN', 'ENTREPRENEUR', 'INVESTOR'])->default('INVESTOR');
             $table->timestamps();
         });
+
+        DB::statement('CREATE EXTENSION IF NOT EXISTS "uuid-ossp";'); // Tambahkan ini di migration
     }
 
     /**
