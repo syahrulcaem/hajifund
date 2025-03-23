@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use App\Events\TransactionProcessed;
 
 class Transaction extends Model
 {
@@ -18,5 +19,14 @@ class Transaction extends Model
     public function user()
     {
         return $this->belongsTo(User::class);
+    }
+
+    protected static function boot()
+    {
+        parent::boot();
+
+        static::created(function ($transaction) {
+            event(new TransactionProcessed($transaction));
+        });
     }
 }

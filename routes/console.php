@@ -1,10 +1,10 @@
 <?php
 
-use Illuminate\Foundation\Console\ClosureCommand;
-use Illuminate\Foundation\Inspiring;
-use Illuminate\Support\Facades\Artisan;
+use Illuminate\Console\Scheduling\Schedule;
 
-Artisan::command('inspire', function () {
-    /** @var ClosureCommand $this */
-    $this->comment(Inspiring::quote());
-})->purpose('Display an inspiring quote');
+app()->booted(function () {
+    $schedule = app(Schedule::class);
+
+    // Kirim reminder laporan tiap tanggal 1 jam 08:00
+    $schedule->command('reminder:send-report')->monthlyOn(1, '08:00');
+});

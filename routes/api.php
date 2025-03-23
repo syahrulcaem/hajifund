@@ -8,6 +8,7 @@ use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Admin\ReportController;
 use App\Http\Controllers\Admin\ProposalController;
 use App\Http\Controllers\Admin\TransactionController;
+use App\Http\Controllers\Admin\NotificationBroadcastController;
 use App\Http\Middleware\RoleMiddleware;
 
 Route::get('/user', function (Request $request) {
@@ -46,4 +47,6 @@ Route::middleware(['auth:api', RoleMiddleware::class . ":ADMIN"])->prefix('admin
 
     Route::get('/notifications', [NotificationController::class, 'index']);
     Route::post('/notifications', [NotificationController::class, 'store']);
+
+    Route::post('/notifications/broadcast-project', [NotificationBroadcastController::class, 'broadcastNewProject']);
 });

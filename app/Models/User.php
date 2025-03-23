@@ -71,4 +71,10 @@ class User extends Authenticatable implements JWTSubject
     {
         return $this->hasMany(Transaction::class);
     }
+
+    // Relasi ke reports (satu ke banyak)
+    public function reports()
+    {
+        return $this->hasMany(Report::class, 'business_id', 'id');
+    }
 }
