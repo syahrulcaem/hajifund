@@ -14,7 +14,7 @@ return new class extends Migration {
             $table->text('description');
             $table->float('fundingGoal');
             $table->dateTime('deadline');
-            $table->enum('status', ['PENDING', 'APPROVED', 'REJECTED'])->default('PENDING');
+            $table->enum('status', ['PENDING', 'APPROVED', 'REJECTED', 'FUNDED', 'COMPLETED'])->default('PENDING');
             $table->timestamps();
         });
     }

@@ -3,11 +3,15 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\InvestmentController;
 use App\Http\Controllers\NotificationController;
+use App\Http\Controllers\InvestmentLotController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Admin\ReportController;
 use App\Http\Controllers\Admin\ProposalController;
 use App\Http\Controllers\Admin\TransactionController;
+use App\Http\Controllers\Admin\TransferFundsController;
+use App\Http\Controllers\Admin\InvestmentValidationController;
 use App\Http\Controllers\Admin\NotificationBroadcastController;
 use App\Http\Middleware\RoleMiddleware;
 
@@ -27,6 +31,14 @@ Route::middleware('auth:api')->group(function () {
     Route::get('/notifications', [NotificationController::class, 'userNotifications']);
     Route::put('/notifications/{id}/read', [NotificationController::class, 'markAsRead']);
     Route::delete('/notifications/{id}', [NotificationController::class, 'destroy']);
+});
+
+Route::middleware(['auth:api', RoleMiddleware::class . ":ENTREPRENEUR"])->group(function () {
+    Route::post('/investment/submit', [InvestmentController::class, 'submit']);
+});
+
+Route::middleware(['auth:api', RoleMiddleware::class . ":INVESTOR"])->group(function () {
+    Route::post('/investment/{businessId}', [InvestmentLotController::class, 'invest']);
 });
 
 Route::middleware(['auth:api', RoleMiddleware::class . ":ADMIN"])->prefix('admin')->group(function () {
@@ -49,4 +61,10 @@ Route::middleware(['auth:api', RoleMiddleware::class . ":ADMIN"])->prefix('admin
     Route::post('/notifications', [NotificationController::class, 'store']);
 
     Route::post('/notifications/broadcast-project', [NotificationBroadcastController::class, 'broadcastNewProject']);
+
+    Route::get('/proposals', [InvestmentValidationController::class, 'index']);
+    Route::post('/proposals/{id}/approve', [InvestmentValidationController::class, 'approve']);
+    Route::post('/proposals/{id}/reject', [InvestmentValidationController::class, 'reject']);
+
+    Route::post('/transfer/{id}', [TransferFundsController::class, 'transfer']);
 });

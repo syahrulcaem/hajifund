@@ -3,11 +3,12 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Model;
 
 class Business extends Model
 {
-    use HasFactory;
+    use HasFactory, HasUuids;
 
     protected $fillable = [
         'name',
@@ -20,7 +21,7 @@ class Business extends Model
 
     public function entrepreneur()
     {
-        return $this->belongsTo(User::class, 'entrepreneur_id');
+        return $this->belongsTo(EntrepreneurDetails::class, 'entrepreneur_id');
     }
 
     public function investments()
