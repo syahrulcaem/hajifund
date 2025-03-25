@@ -14,6 +14,10 @@ use App\Http\Controllers\Admin\TransferFundsController;
 use App\Http\Controllers\Admin\InvestmentValidationController;
 use App\Http\Controllers\Admin\NotificationBroadcastController;
 use App\Http\Middleware\RoleMiddleware;
+use App\Http\Controllers\PaymentController;
+
+
+
 
 Route::get('/user', function (Request $request) {
     return $request->user();
@@ -68,3 +72,5 @@ Route::middleware(['auth:api', RoleMiddleware::class . ":ADMIN"])->prefix('admin
 
     Route::post('/transfer/{id}', [TransferFundsController::class, 'transfer']);
 });
+
+Route::post('/payment', [PaymentController::class, 'createTransaction']);
