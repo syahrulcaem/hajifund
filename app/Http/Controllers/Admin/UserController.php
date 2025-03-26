@@ -20,6 +20,15 @@ class UserController extends Controller
     }
 
     /**
+     * Display a user by id.
+     */
+    public function show($id)
+    {
+        $user = User::findOrFail($id);
+        return response()->json($user, 200);
+    }
+
+    /**
      * Store a newly created resource in storage.
      */
     public function store(Request $request)
