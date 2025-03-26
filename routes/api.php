@@ -50,12 +50,12 @@ Route::middleware(['auth:api', RoleMiddleware::class . ":ADMIN"])->prefix('admin
     Route::post('/proposals/{id}/reject', [ProposalController::class, 'reject']);
 
     Route::get('/reports', [ReportController::class, 'index']);
-    Route::get('/reports/{id}', [ReportController::class, 'show']);
     Route::get('/reports/filter', [ReportController::class, 'filter']);
+    Route::get('/reports/{id}', [ReportController::class, 'show']);
 
     Route::get('/transactions', [TransactionController::class, 'index']);
-    Route::get('/transactions/{id}', [TransactionController::class, 'show']);
     Route::get('/transactions/filter', [TransactionController::class, 'filter']);
+    Route::get('/transactions/{id}', [TransactionController::class, 'show']);
 
     Route::get('/notifications', [NotificationController::class, 'index']);
     Route::post('/notifications', [NotificationController::class, 'store']);
